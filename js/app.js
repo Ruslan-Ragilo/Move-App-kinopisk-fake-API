@@ -30,7 +30,7 @@ const showBoxFilm = (movie) => {
 };
 
 //fetch request
-const getMovies = async (url, key) => {
+const fetchMovies = async (url, key) => {
   const getDataFilm = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -42,8 +42,8 @@ const getMovies = async (url, key) => {
   showMovies(responseFilms);
 };
 
-//get API Key anf call function getMovies
-const getAPIKey = async (apiKeyURL) => {
+//get API Key and call function fetchMovies
+const getMovies = async (apiKeyURL) => {
   const getDataKey = await fetch(apiKeyURL, {
     headers: {
       "Content-Type": "application/json",
@@ -51,10 +51,10 @@ const getAPIKey = async (apiKeyURL) => {
   });
   const jsonResponse = await getDataKey.json();
   responseKey = await jsonResponse[0].API_KEY;
-  getMovies(API_URL_POPULAR, responseKey);
+  fetchMovies(API_URL_POPULAR, responseKey);
 };
 
-getAPIKey(apiKeyURL);
+getMovies(apiKeyURL);
 
 //function for show films
 const showMovies = (data) => {
@@ -66,15 +66,14 @@ const showMovies = (data) => {
 //add pagination number
 const addPaginationNumber = () => {
   for (let i = 1; i <= 10; i++) {
-    i == 1 ?  pagination.innerHTML += `<p class="number_pagination active">${i}</p>`:
-      pagination.innerHTML += ` <p class="number_pagination">${i}</p>`
+    pagination.innerHTML += `<p class="number_pagination ${i == 1 ? ' active': + ''}">${i}</p>`
   }
 };
 
 
 addPaginationNumber();
 
-//function for pagination
+//fuction for pagination
 const numberPaginations = document.querySelectorAll(".number_pagination");
 for (let numberPagination of numberPaginations) {
   numberPagination.addEventListener("click", (e) => {
@@ -84,7 +83,7 @@ for (let numberPagination of numberPaginations) {
   if (e.target === numberPagination) {
       e.target.classList.add("active");
       wrpapperFilms.innerHTML = "";
-      getMovies(
+      fetchMovies(
         API_URL_POPULAR.substring(0, API_URL_POPULAR.length - 1) +
           e.target.textContent,
         responseKey
