@@ -119,7 +119,7 @@ body {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 10px;
 }
 
 .number_pagination {
@@ -128,8 +128,15 @@ body {
   cursor: pointer;
   font-weight: bold;
   font-size: 20px;
+  padding-bottom: 3px;
+  transition: .3s;
+}
+
+.number_pagination:hover {
+  opacity: .5;
 }
 
 .number_pagination.active {
   color: rgb(226, 101, 101);
+  border-bottom: 2px solid rgb(226, 101, 101);
 }
