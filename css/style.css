@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;;
+  color:floralwhite;
+  font-size: 18px;
+}
+
 body {
   background-color: #1a191f;
   font-family: "Open Sans", sans-serif;
@@ -16,10 +22,15 @@ body {
 
 .header__content {
   display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.header__top {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
-  height: 60px;
+  width: 100%;
 }
 
 .header__logo {
@@ -33,6 +44,23 @@ body {
   border: 2px solid #1a191f;
   border-radius: 5px;
   outline: none;
+}
+
+.filter__popular {
+  display: flex;
+  align-items: center;
+}
+
+.filter__popular > span {
+  margin: 0 20px;
+}
+
+.filter__popular > * {
+  color:floralwhite;
+}
+
+.filter_popular_films {
+  margin-top: 20px;
 }
 
 .wrpapper_films {

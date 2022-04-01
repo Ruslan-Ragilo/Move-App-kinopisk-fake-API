@@ -1,6 +1,23 @@
-//variables
-const API_URL_POPULAR =
-  "https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1";
+//variables and filter films top
+
+//filter films top
+let totalFilms = {
+  top250: 'TOP_250_BEST_FILMS&page=1',
+  top100: 'TOP_100_POPULAR_FILMS&page=1'
+};
+
+const itemFilterFilms = document.querySelectorAll(".item_filter_films");
+
+for(let itemFilterFilm of itemFilterFilms) {
+  if (itemFilterFilm.checked) {
+    filmCount = totalFilms['top' + itemFilterFilm.value];
+  }
+}
+
+
+let API_URL =
+  `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=`;
+
   wrpapperFilms = document.querySelector(".wrpapper_films"),
   headerSearch = document.querySelector(".header__search"),
   pagination = document.querySelector(".pagination");
@@ -10,6 +27,7 @@ let responseFilms;
 let responseKey;
 
 const apiKeyURL = "http://localhost:3000/key";
+
 
 //fuction show box film
 const showBoxFilm = (movie) => {
@@ -51,7 +69,7 @@ const getMovies = async (apiKeyURL) => {
   });
   const jsonResponse = await getDataKey.json();
   responseKey = await jsonResponse[0].API_KEY;
-  fetchMovies(API_URL_POPULAR, responseKey);
+  fetchMovies(API_URL, responseKey);
 };
 
 getMovies(apiKeyURL);
@@ -64,8 +82,9 @@ const showMovies = (data) => {
 };
 
 //add pagination number
+let totalNumberPagination;
 const addPaginationNumber = () => {
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= totalNumberPagination / 20; i++) {
     pagination.innerHTML += `<p class="number_pagination ${i == 1 ? ' active': + ''}">${i}</p>`
   }
 };
@@ -84,7 +103,7 @@ for (let numberPagination of numberPaginations) {
       e.target.classList.add("active");
       wrpapperFilms.innerHTML = "";
       fetchMovies(
-        API_URL_POPULAR.substring(0, API_URL_POPULAR.length - 1) +
+        API_URL.substring(0, API_URL.length - 1) +
           e.target.textContent,
         responseKey
       );
@@ -102,3 +121,19 @@ headerSearch.addEventListener("input", (e) => {
       }
     });
 });
+
+//function filter movies popular
+itemFilterFilms.forEach(itemFilterFilm => {
+  itemFilterFilm.addEventListener('change', (e) => {
+    wrpapperFilms.innerHTML = "";
+    fetchMovies(
+      API_URL+totalFilms['top' + e.target.value],
+      responseKey
+    );
+    totalNumberPagination = Number(e.target.value);
+    pagination.innerHTML = '';
+    addPaginationNumber();
+  })
+})
+
+

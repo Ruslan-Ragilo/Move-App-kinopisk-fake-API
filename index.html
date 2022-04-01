@@ -14,10 +14,20 @@
   <body>
     <header class="container">
       <div class="header__content">
-        <a href="index.html" class="header__logo">MovieApp</a>
+        <div class="header__top">
+          <a href="index.html" class="header__logo">MovieApp</a>
         <form>
           <input type="text" class="header__search" placeholder="Поиск" />
         </form>
+        </div>
+        <div class="filter_popular_films">
+          <form class="filter__popular">
+            <input class="item_filter_films" type="radio" name="GFG" id="GFG"
+                value="250" checked> <span>ТОП 250</span>
+            <span></span>
+            <input class="item_filter_films" type="radio" name="GFG" id="HTML" value="100"><span>ТОП 100</span>
+        </form>
+        </div>
       </div>
     </header>
     <div class="container">
