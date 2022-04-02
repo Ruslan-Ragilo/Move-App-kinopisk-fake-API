@@ -17,7 +17,8 @@ let API_URL = `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=${tot
 
 (wrpapperFilms = document.querySelector(".wrpapper_films")),
   (headerSearch = document.querySelector(".header__search")),
-  (pagination = document.querySelector(".pagination"));
+  (pagination = document.querySelector(".pagination")),
+  preloader = document.querySelector('.preloader');
 
 let filmsEl;
 let responseFilms;
@@ -74,16 +75,27 @@ const getMovies = async (apiKeyURL) => {
   fetchMovies(API_URL, responseKey);
 };
 
-
-
 getMovies(apiKeyURL);
 
 //function for show films
 const showMovies = (data) => {
-  data.forEach((movie) => {
+  showPreloader();
+  setTimeout(hidenPreloader, 1300);
+  data.forEach((movie, i) => {
     showBoxFilm(movie);
   });
 };
+showPreloader();
+setTimeout(hidenPreloader, 1300);
+//preloader function
+
+function showPreloader () {
+  preloader.style.display = 'block';
+}
+
+function hidenPreloader () {
+  preloader.style.display = 'none';
+}
 
 //add pagination number
 var numberPaginations;
@@ -145,3 +157,6 @@ headerSearch.addEventListener("input", (e) => {
     }
   });
 });
+
+
+
